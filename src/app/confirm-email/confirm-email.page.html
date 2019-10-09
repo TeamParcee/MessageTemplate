@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Confirm Email</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3" size-md="4" offset-md="3">
+        <ion-text>
+          <h5 text-center>
+            A email confirmation was sent to {{ email }}
+          </h5>
+        </ion-text>
+        <p text-center>
+          <ion-button (click)="changeEmail()" fill="clear">Change Email</ion-button>
+          <ion-button (click)="resendEmail()" fill="clear">Resend Email</ion-button>
+          <ion-button (click)="signout()" fill="clear">Sign Out</ion-button>
+        </p>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

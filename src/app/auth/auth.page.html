@@ -1,0 +1,104 @@
+<ion-content>
+  <ion-text class="logo" color="primary">
+    Parcee Template
+  </ion-text>
+
+
+  <form *ngIf="!showRegister && !showForgotPassword" [formGroup]="loginForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input (ionBlur)="checkLoginEmail()" formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showLoginEmailError" color="danger">
+              <p text-center>The email address is formatted incorrectly</p>
+            </ion-text>
+            <ion-item>
+              <ion-label position="stacked">Password</ion-label>
+              <ion-input (ionBlur)="checkLoginPassword()" formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showLoginPasswordError" color="danger">
+              <p text-center>The password must be 6 characters long</p>
+            </ion-text>
+
+          </ion-list>
+
+          <ion-button (click)="showForgotPassword = true" fill="clear">Forgot Password</ion-button>
+          <ion-button (click)="login()" [disabled]="!loginForm.valid" expand="block"> Login</ion-button>
+          <ion-button (click)="showRegister = true" fill="outline" expand="block"> Create an Account</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <form [formGroup]="registerForm" *ngIf="showRegister && !showForgotPassword">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+          <ion-list>
+
+            <ion-item>
+              <ion-label position="stacked">First Name</ion-label>
+              <ion-input (ionBlur)="checkRegisterFname()" formControlName="fname"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showRegisterFnameError" color="danger">
+              <p text-center>The first name is not long enough</p>
+            </ion-text>
+
+            <ion-item>
+              <ion-label position="stacked">Last Name</ion-label>
+              <ion-input (ionBlur)="checkRegisterLname()" formControlName="lname"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showRegisterLnameError" color="danger">
+              <p text-center>The last name is not long enough</p>
+            </ion-text>
+
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input (ionBlur)="checkRegisterEmail()" formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showRegisterEmailError" color="danger">
+              <p text-center>The email address is formatted incorrectly</p>
+            </ion-text>
+            <ion-item>
+              <ion-label position="stacked">Password</ion-label>
+              <ion-input (ionBlur)="checkRegisterPassword()" formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showRegisterPasswordError" color="danger">
+              <p text-center>The password must be 6 characters long</p>
+            </ion-text>
+          </ion-list>
+
+          <ion-button (click)="registerWithEmail()" [disabled]="!registerForm.valid" expand="block"> Create</ion-button>
+          <ion-button fill="outline" (click)="showRegister = false" expand="block"> Already have an account</ion-button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <form *ngIf="showForgotPassword" [formGroup]="forgotPasswordForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input (ionBlur)="checkforgotPasswordEmail()" formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="showForgotPasswordEmailError" color="danger">
+              <p text-center>The email address is formatted incorrectly</p>
+            </ion-text>
+          </ion-list>
+          <ion-button (click)="resetPassword()" [disabled]="!forgotPasswordForm.valid" email="true" expand="block">Send Password Rest Instructions
+          </ion-button>
+          <ion-button expand="block" fill="clear" (click)="showForgotPassword = false">Back</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>
