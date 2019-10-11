@@ -9,7 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
+import { MessagesPage } from './message-list/messages/messages.page';
 
 var firebaseConfig = {
   apiKey: "AIzaSyD95znX56T3CPJydhHmVSiJqq5DMtCMapI",
@@ -25,9 +26,18 @@ firebase.initializeApp(firebaseConfig);
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [
+    AppComponent,
+    MessagesPage,
+  ],
+  entryComponents: [
+    MessagesPage,
+  ],
+  imports: [
+    BrowserModule, 
+    FormsModule,
+    IonicModule.forRoot(), 
+    AppRoutingModule],
   providers: [
     StatusBar,
     FormBuilder,

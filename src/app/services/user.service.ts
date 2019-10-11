@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { HelperService } from './helper.service';
 import { FirebaseService } from './firebase.service';
+import { NavController } from '@ionic/angular';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class UserService {
   constructor(
     private helper: HelperService,
     private firebaseService: FirebaseService,
+    private navCtrl: NavController,
   ) {
     this.getUser();
   }
@@ -23,9 +25,10 @@ export class UserService {
 
   getUser = () => {
     return new Promise((resolve) => {
-      firebase.auth().onAuthStateChanged((user) => {
-        this.firebaseUser = user;
-        this.user = user;
+      firebase.auth().onAuthStateChanged(async (firebaseUser) => {
+        this.firebaseUser = firebaseUser;
+        let user = await this.firebaseService.getDocument("/users/" + firebaseUser.uid);
+        return resolve(user)
       })
 
     })
@@ -105,7 +108,16 @@ export class UserService {
   signout() {
     return new Promise((resolve) => {
       firebase.auth().signOut().then(() => {
+        this.navCtrl.navigateBack("/auth");
         return resolve()
+      })
+    })
+  }
+
+  getUserFromUid(uid) {
+    return new Promise((resolve) => {
+      return firebase.firestore().doc("/users/" + uid).get().then((userSnap) => {
+        return resolve(userSnap.data())
       })
     })
   }

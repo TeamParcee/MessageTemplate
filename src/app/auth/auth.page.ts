@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as firebase from 'firebase';
 import { UserService } from '../services/user.service';
 import { NavController } from '@ionic/angular';
+import { HelperService } from '../services/helper.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AuthPage implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private navCtrl: NavController,
+    private helper: HelperService,
   ) {
     this.forgotPasswordForm = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]]
@@ -125,12 +127,16 @@ export class AuthPage implements OnInit {
     })
   }
   login() {
-    let form = this.registerForm.value;
-    this.userService.loginUserWithEmail(form.email, form.password);
+    let form = this.loginForm.value;
+    this.userService.loginUserWithEmail(form.email, form.password).then(()=>{
+      this.navCtrl.navigateForward("/home");
+    })
   }
 
   resetPassword() {
-    this.userService.resetPassword(this.forgotPasswordForm.controls["email"].value)
+    this.userService.resetPassword(this.forgotPasswordForm.controls["email"].value).then(()=>{
+      this.helper.okAlert("Password Reset", "A password reset email has been sent to your email")
+    })
   }
 
 

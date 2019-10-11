@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
 
-    
+
     if (await this.isUserLoggedin()) {
       return true;
     } else {

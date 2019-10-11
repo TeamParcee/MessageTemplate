@@ -10,10 +10,10 @@ export class HomePage {
 
   constructor(
     private userService: UserService,
-  ) {}
+  ) { }
 
   user;
-  ionViewWillEnter(){
-    console.log(this.userService.user)
+  async ionViewWillEnter() {
+    console.log("hello", await this.userService.getUser())
   }
 }
