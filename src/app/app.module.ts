@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { MessagesPage } from './message-list/messages/messages.page';
+import { SelectContactPage } from './select-contact/select-contact.page';
 
 var firebaseConfig = {
   apiKey: "AIzaSyD95znX56T3CPJydhHmVSiJqq5DMtCMapI",
@@ -29,9 +30,11 @@ firebase.initializeApp(firebaseConfig);
   declarations: [
     AppComponent,
     MessagesPage,
+    SelectContactPage,
   ],
   entryComponents: [
     MessagesPage,
+    SelectContactPage,
   ],
   imports: [
     BrowserModule, 
@@ -41,6 +44,7 @@ firebase.initializeApp(firebaseConfig);
   providers: [
     StatusBar,
     FormBuilder,
+    ,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

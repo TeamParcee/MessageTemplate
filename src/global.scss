@@ -24,3 +24,13 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+*{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 30;
+}

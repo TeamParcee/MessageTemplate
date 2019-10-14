@@ -1,34 +1,41 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button (click)="close()">
-          <ion-icon name="close" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>{{ (!recipients?.length) ? "New Message" : checkIfMultipleRecipients(recipients)}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-  
-    <ion-item>
-      <ion-label text-wrap>To:
-        <span class="recipient-bubble" margin-left *ngFor="let recipient of recipients">{{  recipient.name }} <ion-icon
-            (click)="removeUser(recipient)" style="vertical-align:middle" name="close"></ion-icon></span>
-      </ion-label>
-      <ion-button (click)="viewContacts()" fill="clear" slot="end">
-        <ion-icon name="add"> </ion-icon>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
+    </ion-buttons>
+    <ion-title>{{ (!recipients?.length) ? "New Message" : checkIfMultipleRecipients(recipients)}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label text-wrap>To:
+      <span class="recipient-bubble" margin-left *ngFor="let recipient of recipients">{{  recipient.name }} <ion-icon
+          (click)="removeUser(recipient)" style="vertical-align:middle" name="close"></ion-icon></span>
+    </ion-label>
+    <ion-button (click)="viewContacts()" fill="clear" slot="end">
+      <ion-icon name="add"> </ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let message of messages">
+      {{ message.text }}
     </ion-item>
-  </ion-content>
-  
-  <ion-footer>
-    <ion-toolbar color="light">
-      <ion-buttons slot="end">
-        <ion-button [disabled]="recipients?.length == 0 || !text" (click)="sendMessage()">
-          <ion-icon name="send" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-textarea [(ngModel)]="text" class="message-input" autoGrow="true" rows="1"></ion-textarea>
-    </ion-toolbar>
-  </ion-footer>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-buttons slot="end">
+      <ion-button [disabled]="recipients?.length == 0 || !text" (click)="sendMessage()">
+        <ion-icon name="send" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-textarea [(ngModel)]="text" class="message-input" autoGrow="true" rows="1"></ion-textarea>
+  </ion-toolbar>
+</ion-footer>

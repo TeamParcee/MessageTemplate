@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   { path: 'confirm-email', loadChildren: './confirm-email/confirm-email.module#ConfirmEmailPageModule' },
   { path: 'messages', loadChildren: './message-list/messages/messages.module#MessagesPageModule' },
+  { path: 'select-contact', loadChildren: './select-contact/select-contact.module#SelectContactPageModule' },
+
 
 ];
 

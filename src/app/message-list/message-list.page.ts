@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import * as firebase from 'firebase';
 import { HelperService } from '../services/helper.service';
 import { MessagesPage } from './messages/messages.page';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-message-list',
@@ -14,6 +15,7 @@ export class MessageListPage implements OnInit {
   constructor(
     private userService: UserService,
     private helper: HelperService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
@@ -25,32 +27,47 @@ export class MessageListPage implements OnInit {
   async ionViewWillEnter() {
     await this.getUser();
     this.getMessageList();
-    this.getUserFromUid();
   }
   async getUser() {
     this.user = await this.userService.getUser();
-    console.log(this.user.uid);
   }
   getMessageList() {
-    firebase.firestore().collection("/users/" + this.user.uid + "/messageList").onSnapshot((messageListsSnap) => {
+    firebase.firestore().collection("/users/" + this.user.uid + "/messageLists").onSnapshot((messageListsSnap) => {
       let messageLists = [];
       messageListsSnap.forEach((messageList) => {
-        messageLists.push(messageList.data())
+        let recipientsUids: any = this.messageService.getRecipientsUids(messageList.data().recipients);
+        let recipients = [];
+        recipientsUids.forEach(async (recipient) => {
+          let user = await this.getUserFromUid(recipient);
+          recipients.push(user);
+        })
+        let newMessageList: any = messageList.data();
+        newMessageList.recipients = recipients;
+        newMessageList.created = newMessageList.created.toString();
+        messageLists.push(newMessageList);
       })
       this.messageLists = messageLists;
     })
   }
   viewMessages(recipients) {
-    this.helper.openModal(MessagesPage, { recipients: recipients })
+    this.helper.openModal(MessagesPage, null);
+    this.messageService.recipients = [...recipients];
   }
 
   newMessage() {
     this.helper.openModal(MessagesPage, null)
   }
-  async getUserFromUid() {
+  async getUserFromUid(uid) {
+    let user: any = await this.userService.getUserFromUid(uid);
+    return user;
+  }
 
-    let user: any = await this.userService.getUserFromUid(this.user.uid)
-    console.log(user);
+  getRecipientName(messageList: []) {
+    let names = []
+    messageList.forEach((x: any) => {
+      names.push(x.name);
+    })
+    return names.sort().toString().replace(",", " & ");
 
   }
 }

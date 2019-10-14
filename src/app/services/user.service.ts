@@ -93,12 +93,13 @@ export class UserService {
       })
     })
   }
-  createUserData(name, photoURL, uid) {
+  createUserData(name, photoURL, uid, email) {
     return new Promise((resolve) => {
       this.firebaseService.setDocument("/users/" + this.firebaseUser.uid, {
         name: name,
         photoURL: photoURL,
-        uid: uid
+        uid: uid,
+        email: email
       }).then(() => {
         return resolve()
       })

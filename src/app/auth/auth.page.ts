@@ -121,7 +121,7 @@ export class AuthPage implements OnInit {
     this.userService.createUserWitEmail(form.email, form.password).then(() => {
       this.userService.updateProfile("../../assets/images/default-user.png", form.fname + " " + form.lname)
     }).then(()=>{
-      this.userService.createUserData(form.fname + " " + form.lname, "../../assets/images/default-user.png", this.userService.firebaseUser.uid).then(()=>{
+      this.userService.createUserData(form.fname + " " + form.lname, "../../assets/images/default-user.png", this.userService.firebaseUser.uid, form.email).then(()=>{
         this.navCtrl.navigateForward("/confirm-email")
       })
     })
